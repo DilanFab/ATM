@@ -32,7 +32,7 @@ El sistema usa las siguientes bibliotecas:
    ```
 3. Ejecuta el sistema con:
    ```sh
-   python cajero_modificado.py
+   python cajero.py
    ```
 
 ## Uso
@@ -54,7 +54,7 @@ El sistema usa las siguientes bibliotecas:
 - **Generar reportes de transacciones.**
 
 ## Archivos del Proyecto
-- `cajero_modificado.py`: Código principal del sistema.
+- `cajero.py`: Código principal del sistema.
 - `clientes.txt`: Base de datos de clientes.
 - `banco.txt`: Información del banco.
 - `transacciones.txt`: Registro de transacciones.
