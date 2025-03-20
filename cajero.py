@@ -13,8 +13,8 @@ ARCHIVO_CLIENTES = "clientes.txt"
 ARCHIVO_BANCO = "banco.txt"
 ARCHIVO_TRANSACCIONES = "transacciones.txt"
 INTENTOS_MAXIMOS = 3
-LIMITE_RETIRO_DIARIO = 400
-LIMITE_TRANSFERENCIA_DIARIA = 400
+LIMITE_RETIRO_DIARIO = 500
+LIMITE_TRANSFERENCIA_DIARIA = 500
 COSTO_IMPRESION = 0.35
 
 # Función para limpiar la pantalla
@@ -400,6 +400,7 @@ def consultar_saldo(usuario, imprimir=False):
         return False, "Cliente no encontrado"
     
     saldo = float(cliente[11])
+    fecha_actual = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     
     if imprimir:
         # Cobrar por impresión
@@ -410,9 +411,9 @@ def consultar_saldo(usuario, imprimir=False):
         # Registrar transacción
         registrar_transaccion(usuario, "Cargo por impresión", COSTO_IMPRESION, saldo, nuevo_saldo)
         
-        return True, nuevo_saldo, True  # True adicional indica que se imprimió
+        return True, nuevo_saldo, fecha_actual, True  # True adicional indica que se imprimió
     
-    return True, saldo, False
+    return True, saldo,fecha_actual, False
 
 # Función para generar reporte de transacciones
 def generar_reporte_transacciones(filtro=None, valor=None):
@@ -587,11 +588,12 @@ def menu_cliente(usuario):
             print("2. No (solo mostrar en pantalla)")
             
             opcion_impresion = input("\nSeleccione una opción: ")
-            
+
             imprimir = opcion_impresion == "1"
             
-            exito, saldo, impreso = consultar_saldo(usuario, imprimir)
+            exito, saldo, fecha , impreso = consultar_saldo(usuario, imprimir)
             if exito:
+                print(f"fecha: {fecha}")
                 if impreso:
                     print(f"Imprimiendo comprobante...")
                     print(f"Se ha cobrado ${COSTO_IMPRESION:.2f} por este servicio")
